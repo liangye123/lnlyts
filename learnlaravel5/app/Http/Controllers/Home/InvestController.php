@@ -5,10 +5,10 @@ use App\Http\Controllers\Controller;
 //use App\Http\Model\Home\invest;
 use Illuminate\Support\Facades\Input;
 
-use App\Productclass;
-use App\Productinfo;
-use App\Userinfo;
-use App\RedBag;
+use App\Http\Model\Home\Productclass;
+use App\Http\Model\Home\Productinfo;
+use App\Http\Model\Home\Userinfo;
+use App\Http\Model\Home\RedBag;
 //首页
 class InvestController extends Controller{
 
@@ -60,7 +60,7 @@ class InvestController extends Controller{
                 $jssj = diffBetweenTwoDays(date('Y-m-d'),date("Y-m-d",strtotime("+".$info['deadline']." month",strtotime("".$info['entime'].""))));
                 //计算出用户已经收益多钱
                 $info['start'] = 1;
-                p($jssj);die;
+//                p($jssj);die;
             }else{
                 $info['jx'] = "已完成";
                 $info['start'] = 0;
@@ -102,6 +102,7 @@ class InvestController extends Controller{
         $userinfo = new Userinfo();
         //用户详情
         $userdata = ajaxJsonencode($userinfo->oneShow($user_id));
+//        p($userdata);die;
         //判断身份证 邮箱是否为空
         if(empty($userdata['idcard']) || empty($userdata['email'])){
             return view('Home/invest/orderr');
