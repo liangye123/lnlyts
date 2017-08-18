@@ -1,26 +1,29 @@
 <?php
 namespace App\Http\Controllers\Home;
-
 use App\Http\Controllers\Controller;
+
+
+use App\Http\Model\Home\Common;
+
+use App\Http\Model\Home\My;
+use Cache;
+//use App\Http\Model\Home\my;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Requests;
-use Cache;
-use DB;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 set_time_limit(0);
 
-use App\Http\Model\Home\RedBag;
-use App\Http\Model\Home\My;
-use App\Http\Model\Home\Bank;
-use App\Http\Model\Home\Common;
+use App\Http\Middleware\RedBag;
+//use App\Http\Model\Home\my;
+//use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Session\CookieSessionHandler;
-
-
-
+//use DB;
+//use Illuminate\Support\Facades\Request;
 
 //首页
 class MyController extends Controller{
@@ -40,121 +43,50 @@ class MyController extends Controller{
     //回款计划
     public function backplan(){
     	return view('Home/my/backplan');
-    }
-    public function Arr($arr){
-        return json_decode(json_encode($arr),true);
-    }
-    //开通第三方
+    }   
+     //开通第三方
     public function openthird(){
-//        Cache::put('id',1,60);
-//        session('user_id')
-//        $user_id=Cache::get('id');
-         $user_id = session('user_id');
-        $model=new My();
-        if($post=Input::get()){
-            $post['user_id']=$user_id;
-            $res=$model->openthird($post);
-            if($res==1){
-                echo 1;
-            }
-        }
-        // return view('Home/my/openthird');
+    	return view('Home/my/openthird');
     }
-    // public function ok(){
-    //     return view('Home/my/ok');
-    // }
-    //渲染第三方
+     //开通第三方1
     public function openthird1(){
-        $user_id = session('user_id');
-        $model=new My();
-        $model1=new Bank();
-        $data=$model->getuser($user_id);
-        // print_r($data);
-        $banks=$model1->banks();
-        // print_r($banks);
-        return view('Home/my/openthird1',['data'=>$data,'banks'=>$banks]);
-    }
-    //充值
-    public function recharge(){
-        $model=new My();
-        if($post=Input::get()){
-            $res=$model->recharge($post);
-            if($res==0){
-                echo 0;
-            }else{
-                echo 1;
-            }
-        }
-        // return view('Home/my/recharge');
-    }
-    //充值1
-    public function recharge1(){
-        $user_id = session('user_id');
-        $model=new My();
-        $model1=new Bank();
-        $banks=$model1->banks();
-        $res=$model->getuser($user_id);
-        $res=$this->Arr($res);
-        if($res['thirds']==0){
-            return view('Home/my/recharge');
-        }else{
-            $userbankcard=$model1->userbankcard($user_id);
-            $userbankcard=$this->Arr($userbankcard);
-            foreach($userbankcard as $k=>$v){
-                $idcard=substr($v['idcard'],-17,-1);
-                $card_num=substr($v['card_num'],-15,-1);
-                $zer = str_replace($idcard, "****************", $v['idcard']);
-                $zer2 = str_replace($card_num, "****", $v['card_num']);
-                $userbankcard[$k]['idcard'] = $zer;
-                $userbankcard[$k]['card_num'] = $zer2;
-            }
-            return view('Home/my/recharge1',['userbankcard'=>$userbankcard,'banks'=>$banks]);
-        }
-    }
-    //提现执行：
-    public function withdrawals(){
-        if($post=Input::get()){
-            print_r($post);
-        }
-        // return view('Home/my/withdrawals');
-    }
-    //提现渲染
-    public function withdrawals1(){
         Cache::put('id',1,60);
         $user_id=Cache::get('id');
         $model=new My();
-        $res=$model->getuser($user_id);
-        $res=$this->Arr($res);
-        print_r($res);
-        if($res['thirds']==0){
-            return view('Home/my/recharge');
-        }else{
-            return view('Home/my/withdrawals1',['res'=>$res]);
+        $data=$model->getuser($user_id);
+        if($post=Input::get()){
+            $post['user_id']=$user_id;
+            $res=$model->openthird1($post);
+            if($res){
+                echo json_encode(1);
+            }
         }
+        return view('Home/my/openthird1',['data'=>$data]);
+    }     
+    //充值
+    public function recharge(){
+    	return view('Home/my/recharge');
     }
+     //充值1
+    public function recharge1(){
+    	return view('Home/my/recharge1');
+    }    
+    //提现
+    public function withdrawals(){
+    	return view('Home/my/withdrawals');
+    } 
+    //提现1
+    public function withdrawals1(){
+    	return view('Home/my/withdrawals1');
+    }       
     //红包
     public function redbag(){
-        $id   = session('user_id');
-//        $arr  = $id[0]->id;
-        if(empty($id)){
-            return redirect('login');
-        }
-        $key  = Input::get('key');
-        $data = RedBag::getRedBag($id,$key);
-        return view('Home/my/redbag',['data'=>$data]);
-    }
+    	return view('Home/my/redbag');
+    }      
     //兑换历史
-    public function exchange()
-    {
-        $id   = session('user_id');
-//        $id   = Cookie::get('user');
-//        $arr  = $id[0]->id;
-        $code = Input::get('id_code');
-        $re   = RedBag::setAdd($id,$code);
-        $data = RedBag::getRedLog($id);
-        return view('Home/my/exchange', ['data' => $data]);
-
-    }
+    public function exchange(){
+    	return view('Home/my/exchange');
+    }       
     //系统信息
     public function system(){
     	return view('Home/my/system');
@@ -163,8 +95,7 @@ class MyController extends Controller{
     public function account(){
 
         $common = new Common();
-        $id=session('user_id');
-
+        $id=2;
         $persion_info = $common->oneCommon("id",$id);
         $position=strpos($persion_info['email'],"@");
         $num=strlen($persion_info['email']);
@@ -226,22 +157,43 @@ class MyController extends Controller{
         $input=Input::all();
         $id=$input['id'];
         $identity=$input["identity"];
-        $common=new Common();
-        $data['idcard'] = $identity;
-        $res=$common->updCommon("id",$id,$data);
-        if($res){
-            return redirect("my/account");
+        $reg="/^(\d{15}$|^\d{18}$|^\d{17}(\d|X|x))$/";
+        preg_match($reg,$identity,$res);
+        if($res==array()){
+            echo "<script> alert('身份证格式不正确,请重新输入');location.href='identity?id=".$id."'; </script>";
         }else{
-            return redirect("my/identity?id=$id");
-        }
+            $common=new Common();
+            $find_idcard=$common->selectOne("idcard",$identity);
+            if($find_idcard!=array()){
+                echo "<script> alert('该身份证已注册');location.href='identity?id=".$id."'; </script>";
+            }else{
+                $AppKey=26752;
+                $Sign="b956a5a33deaa11d0d42644498bf243c";
+                $url="http://api.k780.com/?app=idcard.get&idcard=$identity&appkey=$AppKey&sign=$Sign&format=json";
+                $datas=file_get_contents($url);
+                $idcard_res=json_decode($datas,true)['success'];
+                if($idcard_res==1){
+                    $data['idcard'] = $identity;
+                    $res=$common->updCommon("id",$id,$data);
+                    if($res){
+                        return redirect("my/account");
+                    }else{
+                        return redirect("my/identity?id=$id");
+                    }
+                }else{
+                    echo "<script> alert('该身份证不存在');location.href='identity?id=".$id."'; </script>";
+                }
 
+
+
+            }
+        }
     }
     //修改密码
     public function sell_password(){
         $input=Input::all();
         $id=$input["id"];
-        $password_old=md5($input["password_old"]);
-
+        $password_old=$input["password_old"];
         $password_new=$input["password_new"];
         $common=new Common();
         $persion_info=$common->oneCommon("id",$id);//获取个人信息
@@ -290,6 +242,43 @@ class MyController extends Controller{
         }
     }
 
+    //开通第三方
+    public function open_pay(){
+//        $realname=Input::get("realname");
+//        $idcard=Input::get("idcard");
+//        $paypwd=Input::get("paypwd");
+        exit(json_encode(1));
+    }
+    //绑定邮箱表单
+    public function bind_mail(){
+      $id=Input::get("id");
+      return view("Home/my/bind_mail",["id"=>$id]);
+    }
+    //绑定邮箱
+    public function bind_mail_success(){
+        $input=Input::all();
+        $id=$input["id"];
+        $email=$input["email"];
+        $common=new Common();
+        $data['email'] = $email;
+        $res=$common->updCommon("id",$id,$data);
+        if($res){
+            return redirect("my/account");
+        }
 
+    }
+    //绑定邮箱是否唯一
+    public function mail_one(){
+        $mail=Input::get("mail");
+        $common=new Common();
+        $arr=$common->selectOne("email",$mail);
+        if($arr==array()){
+            exit(json_encode(0));
+        }else{
+            exit(json_encode(1));
+        }
+
+    }
+    
 
 }

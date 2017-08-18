@@ -10,7 +10,7 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-header('content-type:text/html;charset=utf8');
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -18,36 +18,9 @@ Route::get('/', function () {
 Route::any('index', 'Home\IndexController@index');
 //前台 登录
 Route::any('login', 'Home\LoginController@index');
-Route::any('loginout', 'Home\LoginController@loginout');
-Route::any('forget', 'Home\LoginController@forget');
-Route::any('checklogin', 'Home\LoginController@checklogin');
-Route::any('checkname', 'Home\LoginController@checkname');
-Route::any('updatepwd', 'Home\LoginController@updatepwd');
 //前台 注册
-
 Route::any('register', 'Home\LoginController@index');
-
-Route::any('register', 'Home\RegisterController@register');
-          //验证
-Route::any('checkphone', 'Home\RegisterController@checkphone');
-Route::any('checktel', 'Home\RegisterController@checktel');
-Route::any('checkcode', 'Home\RegisterController@checkcode');
-Route::any('regadd', 'Home\RegisterController@regadd');
-Route::any('checkuname', 'Home\RegisterController@checkuname');
-//前台 注册成功
-Route::any('register1', 'Home\RegisterController@register1');
-
-//Route:;group(['middleware'=>['web','checkflogin']],function(){
-//
-//});
-
-//防非法登录中间件
-//Route::any('my/index', function (){
-//
-//    //我的账户 个人中心首页
-//
-//})->middleware('checkflogin');
-
+//我的账户 个人中心首页
 Route::any('my/index', 'Home\MyController@index');
 	//资金记录
 Route::any('my/capital', 'Home\MyController@capital');
@@ -77,23 +50,10 @@ Route::any('my/system', 'Home\MyController@system');
 Route::any('my/account', 'Home\MyController@account');
     //新手入门
 Route::any('my/novice', 'Home\MyController@novice');
-
-
 //我要投资 首页
 Route::any('invest/index', 'Home\InvestController@index');
 //我要投资 详情
 Route::any('invest/infor', 'Home\InvestController@infor');
-//校验
-Route::any('invest/jiaoyan', 'Home\InvestController@jiaoyan');
-//分类查询
-Route::any('invest/typeShow', 'Home\InvestController@typeShow');
-//订单展示
-Route::any('invest/order', 'Home\InvestController@order');
-//添加订单
-Route::any('invest/addOrder', 'Home\InvestController@addOrder');
-
-
-
 //手机验证
 Route::any('my/phone', 'Home\MyController@phone');
 //修改手机页面
@@ -110,9 +70,14 @@ Route::any('my/sell_email', 'Home\MyController@sell_email');
 Route::any('my/sell_password', 'Home\MyController@sell_password');
 //验证身份证号码是否合法
 Route::any('my/idcard', 'Home\MyController@idcard');
-
-
-
+//开通第三方
+Route::any('my/open_pay', 'Home\MyController@open_pay');
+//绑定邮箱表单
+Route::any('my/bind_mail', 'Home\MyController@bind_mail');
+//绑定邮箱
+Route::any('my/bind_mail_success', 'Home\MyController@bind_mail_success');
+//查看邮箱是否唯一
+Route::any('my/mail_one', 'Home\MyController@mail_one');
 //安全保障
 Route::any('safe/index', 'Home\SafeController@index');
 
@@ -174,7 +139,6 @@ Route::any('admin/rbac/admin_list', 'Admin\RbacController@admin_list');
 Route::any('admin/rbac/admin_add', 'Admin\RbacController@admin_add');
 
 
-
 Route::get('cookieset', function()
 {
     $foreverCookie = Cookie::forever('forever', 'Success');
@@ -188,8 +152,3 @@ Route::get('cookietest', function()
     $temporary = Cookie::get('temporary');
     return View::make('cookietest', array('forever' => $forever, 'temporary' => $temporary, 'variableTest' => 'it works'));
 });
-
-
-
-
-

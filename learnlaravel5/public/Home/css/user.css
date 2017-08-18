@@ -191,10 +191,10 @@ a.top-icon1{ float:left; padding-left:30px; background: url(../images/top-icon.p
 .creditor-right .creditor-list{ float:left; margin-top:20px; margin-left:-44px; width:1044px;}
 .creditor-right li{ float:left; width:307px; height:307px; text-align:center; margin:0 0 20px 40px;  position:relative; cursor: pointer;}
 
-.creditor-right .blue-border{background:url(../images/creditor-libg.png) no-repeat; background-position:0 -310px; z-index:2; position:absolute; top:4px; left:4px;width:307px; height:307px;}
-.creditor-right .pink-border{background:url(../images/creditor-libg.png) no-repeat; background-position:0 0; z-index:2;position:absolute; top:4px; left:4px; width:307px; height:307px;}
-.creditor-right .gray-border{background:url(../images/creditor-libg.png) no-repeat; background-position:4px -620px; z-index:1;}
-.creditor-right .pink-border1{background:url(../images/creditor-libg.png) no-repeat; background-position:4px 0; z-index:2;position:absolute; top:0; left:0; width:307px; height:307px;}
+.creditor-right .blue-border{background:url(../images/creditor-libg.png) no-repeat; background-position:0 -310px; z-index:2; position:absolute; top:4px; left:4px;width:307px; height:307px;} 
+.creditor-right .pink-border{background:url(../images/creditor-libg.png) no-repeat; background-position:0 0; z-index:2;position:absolute; top:4px; left:4px; width:307px; height:307px;} 
+.creditor-right .gray-border{background:url(../images/creditor-libg.png) no-repeat; background-position:4px -620px; z-index:1;} 
+.creditor-right .pink-border1{background:url(../images/creditor-libg.png) no-repeat; background-position:4px 0; z-index:2;position:absolute; top:0; left:0; width:307px; height:307px;} 
 
 .creditor-right li p{ color:#919191; text-align:center; z-index:3; position:relative; margin-top:25px; line-height:20px;}
 .creditor-right li p .progress-line{ margin:5px 0; *margin:15px 0; display:block; width:258px; height:4px; background-color:#E1E1E1; margin-left:25px; +margin-left:0px; border-radius:5px;}

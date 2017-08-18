@@ -11,28 +11,6 @@
 <link href="../Home/css/detail.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="../Home/script/jquery.min.js"></script>
 <script type="text/javascript" src="../Home/script/common.js"></script>
-  {{--<script src="../Home/script/jquery-1.7.2.min.js" type="text/javascript"></script>--}}
-  {{--<!-- Core files -->--}}
-  {{--<script src="../Home/script/jquery.alerts.js" type="text/javascript"></script>--}}
-  {{--<link href="../Home/script/jquery.alerts.css" rel="stylesheet" type="text/css" media="screen" />--}}
-
-  <style type="text/css">
-    /* 半透明的遮罩层 */
-    #overlay {
-      background: #000;
-      filter: alpha(opacity=50); /* IE的透明度 */
-      opacity: 0.5; /* 透明度 */
-      display: none;
-      position: absolute;
-      top: 0px;
-      left: 0px;
-      width: 100%;
-      height: 100%;
-      z-index: 100; /* 此处的图层要大于页面 */
-      display:none;
-      _background-color:#a0a0a0; /* 解决IE6的不透明问题 */
-    }
-  </style>
 </head>
 <body>
 <header>
@@ -50,10 +28,10 @@
       <ul class="fn-right header-top-ul">
         <li> <a href="../index" class="app">返回首页</a> </li>
         <li>
-          <div class=""><a href="../register" class="c-orange" title="免费注册">免费注册</a></div>
+          <div class=""><a href="register.html" class="c-orange" title="免费注册">免费注册</a></div>
         </li>
         <li>
-          <div class=""><a href="../login" class="js-login" title="登录">登录</a></div>
+          <div class=""><a href="login.html" class="js-login" title="登录">登录</a></div>
         </li>
       </ul>
     </div>
@@ -64,9 +42,9 @@
       <ul class="top-nav fn-clear">
         <li class="on"> <a href="../index">首页</a> </li>
         <li> <a href="../invest/index" class="">我要投资</a> </li>
-        <li> <a href="../safe/index">安全保障</a> </li>
+        <li> <a href="帮助中心.html">安全保障</a> </li>
         <li class="top-nav-safe"> <a href="../my/index">我的账户</a> </li>
-        <li> <a href="../company/introduce">关于我们</a> </li>
+        <li> <a href="公司简介.html">关于我们</a> </li>
       </ul>
     </div>
   </div>

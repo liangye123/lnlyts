@@ -23,6 +23,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton(checkflogin::class); // SessionStart 是我那个中间件类名
+        //
     }
 }

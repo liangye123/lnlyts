@@ -241,11 +241,12 @@
       <div class="personal-zhsz">
         <h3><i>账户设置</i></h3>
         <div class="personal-level"> <span class="wzd">您的账户完整度</span><i class="grzxbg level3" style="border: none; margin: 37px 0px 0px 20px; height: 17px; background-position: 0px -550px;"></i><span class="state">[中]</span> <i id="zhwzd" class="markicon fl mt35"></i><span class="arrow-personal">请尽快完成账户安全设置，以确保您的账户安全</span><span class="grzxbg icon-personal"></span> </div>
-		  <input type="hidden" id="captcha1" value="{{$persion_info['telephone']}}">
+
 
 		  <ul>
 			  <li><i class="grzxbg p-right"></i><span class="zhsz-span1">手机号</span><span class="zhsz-span2">{{$persion_info['telephone_m']}}</span><span class="zhsz-span3"><a href="javascript:void(0)" onclick="showSpan('alert-checkOldMobile')">更改</a></span></li>
 			  <input type="hidden" value="false" id="authenticationMobile">
+			  <input type="hidden" id="captcha1" value="{{$persion_info['telephone']}}">
 			  <li>
 				  @if ($persion_info['idcard'] == "")
 					  <i class="grzxbg p-danger"></i>
@@ -260,8 +261,22 @@
 					  <span class="zhsz-span3" style="color:green;">已认证</span>
 				  @endif
 			  </li>
-			  <li><i class="grzxbg p-danger"></i><span class="zhsz-span1">第三方支付</span><span class="zhsz-span2">未开通</span><span class="zhsz-span3"><a href="openthird1">开通</a></span></li>
-			  <li> <i class="grzxbg p-right"></i> <span class="zhsz-span1">电子邮箱</span> <span class="zhsz-span2">{{$persion_info['email']}}</span> <span class="zhsz-span3"> <a href="javascript:void(0)" onclick="showSpan('alert-updateEmail')">更改</a> </span> </li>
+			  <li>
+				  @if($persion_info['thirds']==1)
+					  <i class="grzxbg p-right"></i><span class="zhsz-span1">第三方支付</span><span class="zhsz-span2">已开通</span><span class="zhsz-span3" style="color:green;">已开通</span>
+					  @else
+					  <i class="grzxbg p-danger"></i><span class="zhsz-span1">第三方支付</span><span class="zhsz-span2">未开通</span><span class="zhsz-span3"><a href="openthird1">开通</a></span>
+				  @endif
+			  </li>
+			  <li>
+				  @if($persion_info['email']=="")
+					  <i class="grzxbg p-danger"></i> <span class="zhsz-span1">电子邮箱</span> <span class="zhsz-span2">未绑定</span> <span class="zhsz-span3"> <a href="bind_mail?id={{$persion_info['id']}}">绑定</a> </span>
+				  @else
+					  <i class="grzxbg p-right"></i> <span class="zhsz-span1">电子邮箱</span> <span class="zhsz-span2">{{$persion_info['email_m']}}</span> <span class="zhsz-span3"> <a href="javascript:void(0)" onclick="showSpan('alert-updateEmail')">更改</a> </span>
+
+				  @endif
+
+			  </li>
 			  <li><i class="grzxbg p-right"></i><span class="zhsz-span1">登录密码</span><span class="zhsz-span2"></span><span class="zhsz-span3"><a href="javascript:void(0)" onclick="showSpan('alert-updatePass')">更改</a></span></li>
 		  </ul>
       </div>
@@ -488,6 +503,7 @@
 
 				  <input type="button" id="btn" class="btn" value="免费获取验证码" onclick="sendemail()" style="color: white; width: 95px;height:30px; background-color: darkorange">
 				</span>
+
 
 
 				<span id="sendCodeGrey7" style="display:none;"> <a href="#" id="sendAuthCodeBtn7" class="btn-codeAfter" style="cursor:default;">免费获取校验码</a> </span>
@@ -1274,7 +1290,8 @@
 <script>
 	//获取验证码
 	$(document).on("click",".captcha",function(){
-		var phone=$("#captcha1").val();
+		var phone=$("#captcha1").val()
+		alert(phone)
 		$.ajax({
 			url:"phone",
 			data:{phone:phone},
@@ -1335,7 +1352,7 @@
 	//原密码验证
 	$(document).on("blur",".password_old",function(){
 		var password_old=$(this).val()
-		var reg=/^(\w){6,20}$/
+		var reg=/^[a-zA-Z]\w{5,17}$/
 		var flag=reg.test(password_old)
 		if(flag){
 			$("#oldPasswordErrorDiv").html('<span style="color: green">√</span>')
@@ -1346,7 +1363,7 @@
 	//新密码
 	$(document).on("blur",".password_new",function(){
 		password_new=$(this).val()
-		var reg=/^(\w){6,20}$/
+		var reg=/^[a-zA-Z]\w{5,17}$/
 		var flag=reg.test(password_new)
 		if(flag){
 			$("#passwordErrorDiv").html('<span style="color: green">√</span>')
@@ -1357,7 +1374,7 @@
 	//重复新密码
 	$(document).on("blur",".repassword_new",function(){
 		repassword_new=$(this).val()
-		var reg=/^(\w){6,20}$/
+		var reg=/^[a-zA-Z]\w{5,17}$/
 		var flag=reg.test(repassword_new)
 		if(password_new!=repassword_new){
 			$("#repasswordErrorDiv").html('<span style="color: red">×</span>')

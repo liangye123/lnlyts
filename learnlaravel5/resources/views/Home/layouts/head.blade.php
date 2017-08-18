@@ -10,7 +10,6 @@
 <link href="Home/css/index.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="Home/script/jquery.min.js"></script>
 <script type="text/javascript" src="Home/script/common.js"></script>
-
 <style>
 /*上下滚动*/
 #scrollDiv {
@@ -66,26 +65,27 @@ $(document).ready(function() {
       <ul class="fn-right header-top-ul">
         <li> <a href="../index" class="app">返回首页</a> </li>
         <li>
-
           <div class=""><a href="register" class="c-orange" title="免费注册">免费注册</a></div>
         </li>
         <li>
           <div class=""><a href="login" class="js-login" title="登录">登录</a></div>
-        </li>
 
-          <li><div style="color: #0fa24e"><a href="loginout" class="js-login" title="退出">{{session('user_name')}}</a></div></li>
+        </li>
+        {{--<li>--}}
+          {{--<div class=""><a href="../login" class="js-login" title="登录">登录</a></div>--}}
+        {{--</li>--}}
       </ul>
     </div>
   </div>
   <div class="header min-width">
     <div class="container">
-      <div class="fn-left logo"> <a class="" href="../index"> <img src="{{URL::asset('/')}}Home/images/logo.png"  title=""> </a> </div>
+      <div class="fn-left logo"> <a class="" href="index.html"> <img src="{{URL::asset('/')}}Home/images/logo.png"  title=""> </a> </div>
       <ul class="top-nav fn-clear">
         <li class="on"> <a href="../index">首页</a> </li>
         <li> <a href="../invest/index" class="">我要投资</a> </li>
-        <li> <a href="../safe/index">安全保障</a> </li>
+        <li> <a href="帮助中心.html">安全保障</a> </li>
         <li class="top-nav-safe"> <a href="../my/index">我的账户</a> </li>
-        <li> <a href="../company/introduce">关于我们</a> </li>
+        <li> <a href="公司简介.html">关于我们</a> </li>
       </ul>
     </div>
   </div>

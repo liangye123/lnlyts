@@ -34,7 +34,7 @@
     <div class="ft-wap clearfix">
       <dl>
         <dt>官方二维码</dt>
-        {{--<dd><span class="icon-ft-erweima"><img src="Home/Home/images/code.png" style="display: inline;"></span></dd>--}}
+        <dd><span class="icon-ft-erweima"><img src="Home/Home/images/code.png" style="display: inline;"></span></dd>
       </dl>
     </div>
   </div>
