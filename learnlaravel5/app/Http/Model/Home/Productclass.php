@@ -1,11 +1,11 @@
 <?php
 
-namespace App;
+namespace App\Http\Model\Home;
 
 use DB;
 use Illuminate\Database\Eloquent\Model;
 
-class Productinfo extends Model
+class Productclass extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -15,24 +15,12 @@ class Productinfo extends Model
     protected $fillable = [
         'name','pwd','age'
     ];
-    protected $table='Productinfo';
+    protected $table='productclass';
     public $timestamps=false;
     //查询
     public function Show()
     {
-        $data = DB::table('productinfo')->where("productStatus",1)->get();
-        return $data;
-    }
-
-    public function whereShow($id)
-    {
-        $data = DB::table('productinfo')->where("productTypeId",$id)->get();
-        return $data;
-    }
-
-    public function oneShow($id)
-    {
-        $data = DB::table('productinfo')->where("id",$id)->first();
+       $data = DB::table('productclass')->get();
         return $data;
     }
 

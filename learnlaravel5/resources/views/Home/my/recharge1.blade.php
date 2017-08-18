@@ -8,19 +8,14 @@
     <script>
 		$(function(){
 		    $('.quick-tit').click(function(){
-		      
 		      $(this).addClass('pay-cur');
 		      $(this).siblings().removeClass('pay-cur');
 		      $('.quick-main').show();
 		      $('.online-main').hide();
-		      
 		      $(".pay-tipcon").hide();
 		      $(".pay-tipcon2").show();
-
 		    })
-
 		    $('.online-tit').click(function(){
-		      
 		      $(this).addClass('pay-cur');
 		      $(this).siblings().removeClass('pay-cur');
 		      $('.quick-main').hide();
@@ -131,7 +126,7 @@
 			    }
 			}
 
-			//验证输入银行卡号的合法性
+/*			//验证输入银行卡号的合法性
 			function checkBankCardNo() {
 				//$("#form\\:defaultBankName").text("");
 				var cardNo = $("#form\\:bankCardNo").val(); 
@@ -147,7 +142,7 @@
 					$("#bankCardError").html("");
 				}
 				return true;
-			}
+			}*/
 			function checkBank() {
 				$("#form\\:defaultBankName").text("");
 				var cardNo = $("#form\\:bankCardNo").val(); 
@@ -345,24 +340,113 @@
             <div class="quick-main">
               <div class="fl quick-info">
                 <div class="info-1"> <span class="info-tit">充值金额</span> <span class="info1-input">
-                  <input id="form:actualMoney1" type="text" name="" class="pay-money-txt" maxlength="10" >
+                  <input id="form:actualMoney1" type="text" name="rech_money" class="pay-money-txt" maxlength="10" >
                   <em>元</em> </span> <span class="quick-error"> </span> </div>
-                <div class="info-tips">亿人宝提醒您：充值金额超过50000元时，请切换到网银充值</div>
-                <div class="info-2"> <span class="info-tit">银行卡号</span> <span class="info2-input">
-                  <input id="form:bankCardNo" type="text" name="form:bankCardNo" class="tx-txt">
+                <div class="info-tips">多盈理财提醒您：充值金额超过50000元时，请切换到网银充值</div>
+                <div class="info-2"> <span class="info-tit">银行卡号</span>
+           
+                 <span class="info2-input">
+                  <input  value="" name="card_num" id='card_num' style="border:none;color:#333">
                   <em class="info2-bank" style="display: none;">
                   <label id="form:defaultBankName" style="font-size:16px;"> </label>
-                  </em> </span> <span class="quick-error3" id="bankCardError"></span> </div>
-                <div class="bank-check" id="bank-check2"> <b class="selected" id="bankProtocol1"></b><span class="bank-agree">我同意并接受<a href="#" target="_blank">《亿人宝投资咨询与管理服务电子协议》</a></span> <span class="error" id="bankProtocol_message" style="display:none;margin-top:-3px;">请同意协议内容！</span> </div>
-                <input type="submit" name="" value="充值" class="btn-paycz" onclick="return getShowPayVal1()">
+                  </em> </span> 
+                  <span class="quick-error3" id="bankCardError"></span> 
+           
+                </div>
+                <div class="info-2"> <span class="info-tit">支付密码</span>
+           
+                 <span class="info2-input">
+                  <input  value="" type="password" name="paypwd" id='paypwd' maxlength="6" style="color:#333">
+                  <em class="info2-bank" style="display: none;">
+                  <label id="form:defaultBankName" style="font-size:16px;"> </label>
+                  </em> </span> 
+                  <span class="quick-error3" id="bankCardError"></span> 
+           
+                </div>                
+                <div class="bank-check" id="bank-check2"> <b class="selected" id="bankProtocol1"></b><span class="bank-agree">我同意并接受<a href="#" target="_blank">《多盈理财投资咨询与管理服务电子协议》</a></span> <span class="error" id="bankProtocol_message" style="display:none;margin-top:-3px;">请同意协议内容！</span> </div>
+                <input type="button" name="" value="充值" class="btn-paycz" >
               </div>
               <div class="fr bank-info">
                 <p class="bank-tit">快捷支付支持银行：</p>
-                <div class="bank-pic"></div>
+                <div class="bank-pic">
+	            	<ul id="paysSpan" style="height:150px;">
+	            		<?php foreach($userbankcard as $v){ ?>
+	            		<div class="pay-bank">
+	            		 <li class="imgs"  attr-id="<?= $v['id']?>" card_num="<?= $v['card_num']?>" user_id="<?= $v['user_id']?>">
+	            		 <img src="../<?= $v['bank_logo']?>" style="border:1px solid #ccc;">
+	            		 <em ></em>
+	            		 <span class="i" style="display:none;"><i></i></span>
+	            		 </li>
+	            		 </div>
+	              		<?php } ?>
+	            	</ul>
+                </div>
               </div>
             </div>
           </form>
-          <div class="online-main" style="display:none;">
+          <script>
+				$(document).on('click','.imgs',function(){
+					//第三方id
+				    id = $(this).attr('attr-id');
+				    $('#thirds_id').val(id);
+				    //银行卡号
+				    card_num = $(this).attr('card_num');
+				    //充值金额
+				    rech_money=$('.pay-money-txt').val();
+				    $('#hrech_money').val(rech_money);
+				    rech_money1=$('#hrech_money').val();
+				    //用户id
+				    user_id=$(this).attr('user_id');
+				    $('#huser_id').val(user_id);
+				    huser_id=$('#huser_id').val();
+				    // alert(huser_id);
+				    $('#card_num').val(card_num);
+				    $("#card_num").attr("disabled","disabled");
+				    $(this).children('.i').show();
+				    $(this).parent().siblings().children().children('.i').hide();	
+				})
+				$(document).on('click','.btn-paycz',function(){
+					thirds_id=$('#thirds_id').val();			
+					rech_money1=$('#hrech_money').val();
+					huser_id=$('#huser_id').val();
+					paypwd=$('#paypwd').val();
+					if(!window.confirm("你确定要充值吗？")){
+						return false;
+					}else{
+						$.ajax({
+							type:'post',
+							url:'recharge',
+							data:{thirds_id:thirds_id,rech_money:rech_money1,user_id:huser_id,paypwd:paypwd},
+							success:function(data){
+								alert(data)
+							}
+						})
+					}
+				})
+          </script>
+              <div class="alert-450" id="alert-updatePass" style="display: none;">
+      <div class="alert-title">
+        <h3>修改密码</h3>
+        <span class="alert-close" onclick="displaySpan('alert-updatePass')"></span></div>
+      <div class="alert-main">
+        <form id="updatePassForm" name="" method="post" action="recharge1" enctype="application/x-www-form-urlencoded">
+          <input type="hidden" name="hrech_money" id="hrech_money" value="">
+          <input type="hidden" name="thirds_id" id="thirds_id" value="">
+          <input type="hidden" name="huser_id" id="huser_id" value="">
+          <ul>
+            <li>
+              <label class="txt-name">请输入支付密码</label>
+              <input id="updatePassForm:oldPassword" type="password" name="paypwd" value="" maxlength="6" class="txt235">
+              <div id="oldPasswordErrorDiv" class="alert-error120"></div>
+            </li>
+            <li>
+              <input type="submit" value="确 认" id="recharge1" class="btn-ok btn-235 txt-right">
+            </li>
+          </ul>
+        </form>
+      </div>
+      </div>
+          <div class="online-main" style="display:none;float:left;">
             <form id="recharge" name="recharge" method="post" action="#" target="_blank">
               <div class="online-mar">
                 <div class="quick-info quick-info-width">
@@ -371,26 +455,14 @@
                     <em>元</em> </span> <span id="actualMoneyErrorDiv" class="quick-error2"> </span> </div>
                 </div>
               </div>
-              <div> <span><font style=" color:#848484;font-weight:bold; margin-left:80px; height:32px; line-height:32px; font-size:12px;">亿人宝提醒您：充值前，请核实您的可用支付额度！</font></span> </div>
+              <div> <span><font style=" color:#848484;font-weight:bold; margin-left:80px; height:32px; line-height:32px; font-size:12px;">亿人提醒您：充值前，请核实您的可用支付额度！</font></span> </div>
               <div class="pay-bank" id="pay-bank">
                 <h6>请选择充值银行</h6>
                 <span id="showpay" style="display:none;">icbc</span>
                 <ul id="paysSpan" style="height:150px;">
-                  <li><img src="images/bank_002.gif" property1="icbc" class="on"><em></em><i></i></li>
-                  <li><img src="images/bank_006.gif" property1="abc"><em></em></li>
-                  <li><img src="images/bank_001.gif" property1="boc"><em></em></li>
-                  <li><img src="images/bank_004.gif" property1="ccb"><em></em></li>
-                  <li><img src="images/bank_008.gif" property1="hxb"><em></em></li>
-                  <li><img src="images/bank_007.gif" property1="comm"><em></em></li>
-                  <li><img src="images/bank_003.gif" property1="cmb"><em></em></li>
-                  <li><img src="images/bank_011.gif" property1="ceb"><em></em></li>
-                  <li><img src="images/bank_015.gif" property1="cncb"><em></em></li>
-                  <li><img src="images/bank_010.gif" property1="cmsb"><em></em></li>
-                  <li><img src="images/bank_012.gif" property1="cgb"><em></em></li>
-                  <li><img src="images/bank_bos.gif" property1="shb"><em></em></li>
-                  <li><img src="images/bccb.gif" property1="bjb"><em></em></li>
-                  <li><img src="images/bank-nsyh.gif" property1="rcb"><em></em></li>
-                  <li><img src="images/bank-xyyh.gif" property1="cib"><em></em></li>
+                	@foreach($banks as $v)
+                  <li><img src="../{{$v->bank_logo}}" property1="icbc" ><em></em></li>
+                  	@endforeach
                 </ul>
                 <span class="pay-other"><span class="paytxt">选择其他银行卡</span><i class="paydown"></i></span> </div>
               <div class="pay-bankstate"> <span class="bankstate-head"><i class="fl">请关注您的充值金额是否超限：</i><i class="fr" id="show-pay-hotLine">工商银行客服热线：95588</i></span>
@@ -431,13 +503,13 @@
                   </tbody>
                 </table>
               </div>
-              <div class="bank-check" id="bank-check"> <b class="selected" id="bankProtocol"></b><span class="bank-agree">我同意并接受<a href="/node/Candyprivacypolicy/candyprivacypolicy_tzzxyglfwdzxy" target="_blank">《亿人宝金融投资咨询与管理服务电子协议》</a></span> <span class="error" id="bankProtocol_message" style="display:none;margin-top:-3px;">请同意协议内容！</span> </div>
-              <input type="submit" name="recharge:j_idt96" value="充值" class="btn-paycz" onclick="return getShowPayVal()">
+              <div class="bank-check" id="bank-check"> <b class="selected" id="bankProtocol"></b><span class="bank-agree">我同意并接受<a href="/node/Candyprivacypolicy/candyprivacypolicy_tzzxyglfwdzxy" target="_blank">《多盈理财金融投资咨询与管理服务电子协议》</a></span> <span class="error" id="bankProtocol_message" style="display:none;margin-top:-3px;">请同意协议内容！</span> </div>
+              <input type="submit" name="recharge:j_idt96" value="充值" class="btn-paycz"  onclick="showSpan('alert-updatePass')">
               <input type="hidden" name="javax.faces.ViewState" id="javax.faces.ViewState">
             </form>
           </div>
           <div class="pay-tipcon" style="display:none;"> <b>充值提示：</b><br>
-            1．亿人宝充值过程免费，不向用户收取任何手续费。<br>
+            1．多盈理财充值过程免费，不向用户收取任何手续费。<br>
             2．为了您的账户安全，请在充值前进行身份认证、手机绑定以及交易密码设置。<br>
             3．您的账户资金将通过丰付支付第三方平台进行充值。<br>
             4．请注意您的银行卡充值限制，以免造成不便。<br>
@@ -563,7 +635,7 @@
           <h3>提示信息</h3>
           <span class="alert-close" onclick="displaySpan('alert-tyht')"></span></div>
         <div class="alert-main" style="margin-bottom: 35px;margin-left: 25px;">
-          <p class="msg4"> 你需要阅读并同意《亿人宝金融投资咨询与管理服务电子协议》 </p>
+          <p class="msg4"> 你需要阅读并同意《多盈理财金融投资咨询与管理服务电子协议》 </p>
         </div>
       </div>
     </div>

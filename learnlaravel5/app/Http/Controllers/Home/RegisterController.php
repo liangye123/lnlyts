@@ -5,7 +5,7 @@ use App\Http\Model\Home\register;
 use Illuminate\Support\Facades\Input;
 use DB;
 use Redis;
-use App\Userinfo;
+use App\Http\Model\Home\Userinfo;
 //注册
 class RegisterController extends Controller{
     public function register(){

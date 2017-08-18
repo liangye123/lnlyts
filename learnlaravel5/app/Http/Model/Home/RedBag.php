@@ -6,7 +6,7 @@
  * Time: 14:58
  */
 
-namespace App;
+namespace App\Http\Model\Home;
 use Illuminate\Database\Eloquent\Model;
 use DB;
 class RedBag extends Model

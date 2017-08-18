@@ -5,7 +5,7 @@ use App\Http\Model\Home\login;
 use Illuminate\Support\Facades\Input;
 use Cache;
 use DB;
-use App\Userinfo;
+use App\Http\Model\Home\Userinfo;
 //use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 //首页
